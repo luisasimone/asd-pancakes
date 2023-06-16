@@ -1,0 +1,3 @@
+/home/luiza/CLionProjects/2022/exam_2/cmake-build-debug/CMakeFiles/exam_2.dir
+/home/luiza/CLionProjects/2022/exam_2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/luiza/CLionProjects/2022/exam_2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
