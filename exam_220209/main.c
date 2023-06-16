@@ -3,7 +3,7 @@
 #include "Map.h"
 
 int main() {
-    Map m;
+    Map m = malloc(sizeof(*m));
 
     FILE *fp;
     fp = fopen("griglia.txt", "r");
