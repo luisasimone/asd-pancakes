@@ -1,5 +1,5 @@
-/snap/clion/237/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/luiza/CLionProjects/asd-pancakes/exam_220209 -B /home/luiza/CLionProjects/asd-pancakes/exam_220209/cmake-build-debug
--- The C compiler identification is GNU 11.3.0
+/app/extra/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -S /home/luiza/CLionProjects/2022/asd-pancakes/exam_220209 -B /home/luiza/CLionProjects/2022/asd-pancakes/exam_220209/cmake-build-debug
+-- The C compiler identification is GNU 12.2.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
 -- Check for working C compiler: /usr/bin/cc - skipped
@@ -7,4 +7,4 @@
 -- Detecting C compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/luiza/CLionProjects/asd-pancakes/exam_220209/cmake-build-debug
+-- Build files have been written to: /home/luiza/CLionProjects/2022/asd-pancakes/exam_220209/cmake-build-debug
