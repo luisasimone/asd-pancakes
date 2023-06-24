@@ -1,0 +1,6 @@
+#ifndef EXAM_220627_PARTITION_H
+#define EXAM_220627_PARTITION_H
+
+#include "Graph.h"
+
+#endif //EXAM_220627_PARTITION_H

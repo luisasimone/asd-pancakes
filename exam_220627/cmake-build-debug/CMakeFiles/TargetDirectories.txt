@@ -1,0 +1,3 @@
+/home/luiza/CLionProjects/asd-pancakes/exam_220627/cmake-build-debug/CMakeFiles/exam_220627.dir
+/home/luiza/CLionProjects/asd-pancakes/exam_220627/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/luiza/CLionProjects/asd-pancakes/exam_220627/cmake-build-debug/CMakeFiles/rebuild_cache.dir
