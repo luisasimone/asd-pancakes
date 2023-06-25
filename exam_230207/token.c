@@ -41,22 +41,22 @@ void TOKENadd (Grid G, char token[2], int cnt) {
     G->grid[R][C] = t;
 }
 
-BonusBlock BONUSread (FILE* fp, int L) {
-    BonusBlock B = malloc(sizeof(*B));
+BonusTab BONUSread (FILE* fp, int L) {
+    BonusTab B = malloc(sizeof(*B));
     int n, nb, j, i;
     char token[2];
     token_t t;
-    B->block = malloc(L * sizeof(bonus_t*));
+    B->blocks = malloc(L * sizeof(bonus_t*));
 
     fscanf(fp, "%d", &n);
     for (i=0; i<n; i++) {
         fscanf(fp, "%d", nb);
         for (j=0; i<nb; j++) {
-            B->block[i].N = nb;
-            B->block[i].tokens = malloc(nb * sizeof(token_t));
+            B->blocks[i].N = nb;
+            B->blocks[i].tokens = malloc(nb * sizeof(token_t));
             fscanf(fp, "%s", token);
             t = TOKENcreate(token);
-            B->block[i].tokens[j] = t;
+            B->blocks[i].tokens[j] = t;
         }
     }
 
@@ -65,7 +65,7 @@ BonusBlock BONUSread (FILE* fp, int L) {
 
 //sulla prima riga del file è indicato il numero N di token proposti
 //a seguire N token per la proposta di soluzione
-int PROPread (FILE *fp, Grid G, BonusBlock B, int L) {
+int PROPread (FILE *fp, Grid G, BonusTab B, int L) {
     int n, i, bonus=0;
     char token[2];
     Prop P = malloc(sizeof(*P));
@@ -88,18 +88,18 @@ int PROPread (FILE *fp, Grid G, BonusBlock B, int L) {
     return bonus;
 }
 
-int BONUScnt (BonusBlock B, Prop P) {
+int BONUScnt (BonusTab B, Prop P) {
     int bonus = 0, i, j, k, cnt=0;
 
     for (i=0; i<B->N; i++) {
         k = 0;
-        for (j=0; j<B->block[i].N; j++) {
-            if (TOKENcompare(B->block[i].tokens[j], P->prop[k]))
+        for (j=0; j<B->blocks[i].N; j++) {
+            if (TOKENcompare(B->blocks[i].tokens[j], P->prop[k]))
                 cnt++;
             k++;
         }
-        if (cnt == B->block[i].N)
-            bonus += B->block[i].val;
+        if (cnt == B->blocks[i].N)
+            bonus += B->blocks[i].val;
     }
 
     return bonus;
@@ -151,4 +151,35 @@ int PROPisValid (Grid G, Prop P) {
             return 0;
     }
     return 1;
+}
+
+void PATHsearch (Grid G, int L, BonusTab B) {
+    int i;
+    Prop val = malloc(sizeof(*val));
+    val->N = L;
+    val->prop = malloc(val->N * sizeof(token_t));
+    Prop sol = malloc(sizeof(*sol));
+    sol->N = L;
+    sol->prop = malloc(sol->N * sizeof(token_t));
+    PATHrec(0, 0, G, B, sol, val, 0);
+    PRINTsol(sol);
+}
+
+void PATHrec (int x, int y, Grid G, BonusTab B, Prop sol, Prop val, int cnt) {
+    int i;
+    //terminazione: superati i limiti della matrice o il buffer è pieno
+    if (x*y > G->N || cnt >= val->N) {
+        if (BONUScnt(B, val) > BONUScnt(B, sol))
+            PROPcpy(sol, val);
+    }
+    //ricorsione: avanza lungo la stessa riga
+    for (i=0; i<G->N; i++) {
+        val->prop[cnt] = G->grid[x][y];
+        PATHrec(x + 1, y, G, B, sol, val, cnt+1);
+    }
+    //ricorsione: avanza lungo la stessa colonna
+    for (i=0; i<G->N; i++) {
+        val->prop[cnt] = G->grid[x][y];
+        PATHrec(x, y+1, G, B, sol, val, cnt+1);
+    }
 }
