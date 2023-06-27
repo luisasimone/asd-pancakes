@@ -6,15 +6,13 @@
 
 #define MAX 20
 
-int main(int argc, char* argv[]) {
-    int L = atoi(argv[1]);
-    char nome_file[MAX];
-    FILE* fin_grid;
+int main() {
+    int L = 3;
+    FILE *fin_grid, *fin_bonus;
     Grid G = malloc(sizeof(*G));
 
-    strcpy(nome_file, argv[2]);
-
-    fin_grid = fopen(nome_file, "r");
+    fin_grid = fopen("grid.txt", "r");
+    fin_bonus = fopen("bonus.txt", "r");
 
     G = GRIDread(fin_grid);
 
