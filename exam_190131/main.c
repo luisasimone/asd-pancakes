@@ -5,19 +5,18 @@
 
 #define MAX 20
 
-int main(int argc, char* argv[]) {
+int main() {
     Graph G;
-    char file_graph[MAX];
-    char file_vertex[MAX];
-    char file_output[MAX];
+    Kernel K;
     FILE *f_graph, *f_vertex, *f_output;
 
-    strcpy(file_graph, argv[1]);
-    strcpy(file_vertex, argv[2]);
-    strcpy(file_output, argv[3]);
-
-    f_graph = fopen(file_graph, "r");
+    f_graph = fopen("graph.txt", "r");
+    f_vertex = fopen("vertex.txt", "r");
     G = GRAPHload(f_graph);
+    K = KERNELload(G, f_vertex);
+
+    KERNELminW(G);
+
 
     return 0;
 }
