@@ -30,7 +30,7 @@ void GRAPHinsertE(Graph G, int id1, int id2);
 void GRAPHedges(Graph G, Edge *a);
 Kernel KERNELload (Graph G, FILE *f_in);
 void KERNELminW (Graph G);
-void KERNELmin (Graph G, int pos, Kernel sol, Kernel val, int best_val, int curr_val, int start);
+void KERNELmin (Graph G, int pos, Kernel sol, Kernel val, int best_val, int curr_val, int start, int cnt_val);
 void LONGESTpathW (Graph G, Kernel K);
 int LONGESTpath (Graph G, int pos, int *best_val, int *curr_val, int* path, Kernel K);
 

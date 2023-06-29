@@ -175,18 +175,19 @@ int KERNELvalid (Graph G, Kernel K) {
 }
 
 void KERNELminW (Graph G)  {
-    int i, curr_val=0, best_val=100;
+    int curr_val=0, best_val=100;
     Kernel sol = KERNELinit(G->V);
     Kernel val = KERNELinit(G->V);
-    KERNELmin(G, 0, sol, val, best_val, curr_val, 0);
+    KERNELmin(G, 0, sol, val, best_val, curr_val, 0, 0);
 
 }
 
 void KERNELcpy (Kernel dst, Kernel src) {
     int i;
-    dst->set = malloc(dst->N * sizeof(int));
-    src->set = malloc(dst->N * sizeof(int));
-    for (i=0; i<dst->N; i++)
+    dst->N = src->N;
+    dst->set = malloc(src->N * sizeof(int));
+    src->set = malloc(src->N * sizeof(int));
+    for (i=0; i<src->N; i++)
         dst[i] = src[i];
 }
 
@@ -194,10 +195,11 @@ int KERNELcnt (Kernel val) {
     return val->N;
 }
 
-void KERNELmin (Graph G, int pos, Kernel sol, Kernel val, int best_val, int curr_val, int start) {
+void KERNELmin (Graph G, int pos, Kernel sol, Kernel val, int best_val, int curr_val, int start, int cnt_val) {
     int i;
     //terminazione: non ci sono più vertici
     if (start >= G->V) {
+        val->N = cnt_val;
         curr_val = KERNELcnt(val);
         if (curr_val < best_val && KERNELvalid(G, val)) {
             best_val = curr_val;
@@ -209,11 +211,11 @@ void KERNELmin (Graph G, int pos, Kernel sol, Kernel val, int best_val, int curr
     }
     for (i=start; i<G->V; i++) {
         val->set[i] = i;
-        val->N++;
-        KERNELmin(G, pos+1, sol, val, best_val, curr_val, i+1);
-        val->N--;
+        cnt_val++;
+        KERNELmin(G, pos+1, sol, val, best_val, curr_val, i+1, cnt_val);
+        cnt_val--;
     }
-    KERNELmin(G, pos, sol, val, best_val, curr_val, G->V);
+    KERNELmin(G, pos, sol, val, best_val, curr_val, G->V, cnt_val);
 }
 
 void LONGESTpathW (Graph G, Kernel K) {
